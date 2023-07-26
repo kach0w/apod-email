@@ -32,7 +32,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchImage();
-    const job = schedule.scheduleJob('* * * * *', () => {
+    const job = schedule.scheduleJob('0 8 * * *', () => {
       console.log("Send email")
       // sendEmails();
     });
@@ -84,7 +84,7 @@ export default function Home() {
           </div>
           <div>
             {imageUrl ? (
-            <img src={imageUrl} alt="Fetched Image" style={{ width: '500px', height: 'auto' }} />
+            <Image src={imageUrl} alt="Fetched Image" style={{ width: '500px', height: 'auto' }}></Image>
           ) : (
             <p>Loading...</p>
           )}  
