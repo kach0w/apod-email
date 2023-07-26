@@ -26,16 +26,15 @@ export default function Home() {
     setDate(data.date);
     setTitle(data.title);
   };
-  const sendEmails = async () => {
-    const data = await axios.post('/api/route', {param: 1} )
-    console.log("Success")
-  }
+  // const sendEmails = async () => {
+  //   console.log("Success")
+  // }
 
   useEffect(() => {
     fetchImage();
     const job = schedule.scheduleJob('* * * * *', () => {
       console.log("Send email")
-      sendEmails();
+      // sendEmails();
     });
   }, []);
   
