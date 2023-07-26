@@ -14,7 +14,7 @@ export default function Home() {
   const [imageUrl, setImageUrl] = useState('');
   const [date, setDate] = useState('');
   const [title, setTitle] = useState('');
-
+ 
   const [emailInput, setEmailInput] = useState("");
   const [pref, setPref] = useState("");
   const fetchImage = async () => {
