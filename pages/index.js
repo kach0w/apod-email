@@ -1,70 +1,96 @@
 'use client';
 import Image from 'next/image'
-import '../styles/global.css'
+// import '../styles/Home.module.css'
 import React from 'react'
-import axios from 'axios';
-import { get } from 'http';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { db } from '../firebase';
 import Head from 'next/head'
 import schedule from 'node-schedule';
+import axios from 'axios' 
 
 export default function Home() {
-  const [imageUrl, setImageUrl] = useState('');
-  const [date, setDate] = useState('');
-  const [title, setTitle] = useState('');
- 
-  const [emailInput, setEmailInput] = useState("");
-  const [pref, setPref] = useState("");
-  const fetchImage = async () => {
-    const apikey = process.env.NEXT_PUBLIC_NASA_API_KEY
-    const url = "https://api.nasa.gov/planetary/apod?api_key=" + apikey ;
-    const res = await fetch(url);
-    const data = await res.json();
-    setImageUrl(data.url);
-    setDate(data.date);
-    setTitle(data.title);
-  };
-  // const sendEmails = async () => {
-  //   console.log("Success")
-  // }
+    const [imageUrl, setImageUrl] = useState('');
+    const [date, setDate] = useState('');
+    const [title, setTitle] = useState('');
+    const [emailInput, setEmailInput] = useState("");
+    const [emails, setEmails] = useState([]);
+
+    const fetchImage = async () => {
+        const apikey = process.env.NEXT_PUBLIC_NASA_API_KEY
+        const url = "https://api.nasa.gov/planetary/apod?api_key=" + apikey ;
+        const res = await fetch(url);
+        const data = await res.json();
+        setImageUrl(data.url);
+        setDate(data.date);
+        setTitle(data.title);
+    };
+    let d = new Date()
+    const sendEmails = async () => {
+        const querySnapshot = await db.collection("apod").get();
+
+        const emails = querySnapshot.docs.map((doc) => {
+          return doc.data().emailInput;
+        });
+    
+        setEmails(emails);
+        console.log("emailData: " + emails)
+
+        
+        // emails.map((email) => {
+        //   emailList.push(email.emailInput);
+        // })
+        await fetch("/api/route", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", 
+            },
+            body: JSON.stringify( emails ),
+        }).then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+        });; 
+    };
+    
 
   useEffect(() => {
     fetchImage();
-    const job = schedule.scheduleJob('0 8 * * *', () => {
-      console.log("Send email")
-      // sendEmails();
-    });
-  }, []);
-  
-  const handleOptionChange = (event) => {
-    setPref(event.target.value);
-  };
+    // console.log(emailList)
+    // 8 am mondays 0 8 * * 1
+    setTimeout(sendEmails,50);
 
+    // const job = schedule.scheduleJob('0 8 * * 1', () => {
+    console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
+      // setEmails([]);
+
+    //   sendEmails();
+    // });
+    // console.log(emailList)
+
+  }, []);
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const apodData = {
         emailInput,
-        pref,
         createdAt: new Date().toISOString(),
     };
     try {
-        await db.collection('apod').add(apodData);
-        setEmailInput('');
-        setPref('');
-        alert("Success, you have been added to the email list.")
+        if(validateEmail(emailInput)){
+            await db.collection('apod').add(apodData);
+            setEmailInput('');
+            alert("Success, you have been added to the email list.")
+        } else {
+            alert("Enter a valid email address.")
+        }
+       
     } catch (error) {
         console.error('Error adding email:', error);
     }
   };
-
-  let d = new Date();
-  let hours = d.getHours()
-  let minutes = d.getMinutes();
-  let seconds = d.getSeconds();
-
-  
 
   return (
     <div className="w-[100vw] h-[100vh] bg-[#c2eaba] text-[#222] text-center p-5">
@@ -72,32 +98,32 @@ export default function Home() {
         <title>APoD Email System</title>
         <meta name="description" content="An email for those interested in NASA's Astronomy Pictures of the Day"></meta>
         <link rel="icon" href="/favicon.png" sizes="any" />      
-      </Head>
-      <body>
-        
-      </body>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz@8..60&display=swap" rel="stylesheet" />
+      </Head>        
       <h2>Astronomy Picture of the Day - Email System</h2>
       <div className='relative w-[70rem] h-[43rem] mx-auto mt-[5rem]'>
         <div id="apoc-pic" className='absolute inset-y-0 left-0 w-[35rem]'>
           <div>
-            <caption className='w-[30rem] mb-2'>{title}</caption>
+            <div className='w-[30rem] mb-2'>{title}</div>
           </div>
           <div>
             {imageUrl ? (
-            <Image src={imageUrl} alt="Fetched Image" style={{ width: '500px', height: 'auto' }}></Image>
+            <Image width="500" height="500" src={imageUrl} alt="Fetched Image" style={{ width: '500px', height: '500px' }}></Image>
           ) : (
             <p>Loading...</p>
           )}  
           </div>
           <div>
-            <caption className='w-[30rem] mt-2'>{date}</caption>
+            <div className='w-[30rem] mt-2'>{date}</div>
           </div>
         </div>
         <div className='absolute inset-y-0 right-0 w-[35rem]'>
           <h2>Hello! Welcome to the website.</h2>
           <p>This email system is a way for astronomy lovers or people who just like 
             seeing NASA's space photos (I mean who doesn't) to get a snapshot of NASA's 
-            daily Astronomy Photos of the Day. I personally recommend weekly, but that's just me.</p>
+            daily Astronomy Photos of the Day.</p>
           <br></br>
           <p className='font-bold'><u>Join the Email List:</u></p>
           <form onSubmit={handleSubmit}>
@@ -109,16 +135,6 @@ export default function Home() {
                     onChange={(event) => setEmailInput(event.target.value)}
                     id="email"
                     placeholder="Email..." />
-                <br></br>
-                <br></br>
-                <select id="pref" value={pref} onChange={handleOptionChange} className='rounded-md p-2 text-[black] w-[13rem] bg-[white]'>
-                  <option value="" disabled selected>Select your preference</option>
-                  <option value="daily">Daily</option>
-                  <option value="two">Every 2 Days</option>
-                  <option value="five">Every 5 Days</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
                 <br></br>
                 <br></br>
                 <button className='bg-[#3b82f6] py-2 px-8 rounded-lg hover:shadow-lg text-[white] hover:text-slate-200'>Submit</button>
