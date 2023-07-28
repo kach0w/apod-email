@@ -92,14 +92,14 @@ export default function Home() {
   return (
     <div className="w-[100vw] h-[100vh] bg-[#c2eaba] text-[#222] text-center p-5">
       <Head>
-        <title>APoD Email System</title>
-        <meta name="description" content="An email for those interested in NASA's Astronomy Pictures of the Day"></meta>
+        <title>APoD Email</title>
+        <meta name="description" content="An email list for those interested in NASA's Astronomy Pictures of the Day"></meta>
         <link rel="icon" href="/favicon.png" sizes="any" />      
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz@8..60&display=swap" rel="stylesheet" />
       </Head>        
-      <h2>Astronomy Picture of the Day - Email System</h2>
+      <h2>Astronomy Picture of the Day - Email List</h2>
       <div className='relative w-[70rem] h-[43rem] mx-auto mt-[5rem]'>
         <div id="apoc-pic" className='absolute inset-y-0 left-0 w-[35rem]'>
           <div>
@@ -119,8 +119,8 @@ export default function Home() {
         <div className='absolute inset-y-0 right-0 w-[35rem]'>
           <h2>Hello! Welcome to the website.</h2>
           <p>This email system is a way for astronomy lovers or people who just like 
-            seeing NASA's space photos (I mean who doesn't) to get a snapshot of NASA's 
-            daily Astronomy Photos of the Day.</p>
+            seeing space photos to get a snapshot of NASA's 
+            Astronomy Photos of the Day.</p>
           <br></br>
           <p className='font-bold'><u>Join the Email List:</u></p>
           <form onSubmit={handleSubmit}>
