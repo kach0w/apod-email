@@ -56,7 +56,7 @@ export default function Home() {
   useEffect(() => {
     fetchImage();
     // 8 am mondays 0 8 * * 1
-    setTimeout(sendEmails,50);
+    // setTimeout(sendEmails,50);
 
     const job = schedule.scheduleJob('0 8 * * 1', () => {
       console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
