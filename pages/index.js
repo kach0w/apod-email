@@ -100,10 +100,10 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz@8..60&display=swap" rel="stylesheet" />
       </Head>        
       <h2>Astronomy Picture of the Day - Email List</h2>
-      <div className='relative w-[70rem] h-[43rem] mx-auto mt-[5rem]'>
+      <div className='relative w-[65rem] h-[43rem] mx-auto mt-[5rem]'>
         <div id="apoc-pic" className='absolute inset-y-0 left-0 w-[35rem]'>
           <div>
-            <div className='w-[30rem] mb-2'>{title}</div>
+            <div className='w-[30rem] mb-2'>"{title}"</div>
           </div>
           <div>
             {imageUrl ? (
@@ -116,11 +116,11 @@ export default function Home() {
             <div className='w-[30rem] mt-2'>{date}</div>
           </div>
         </div>
-        <div className='absolute inset-y-0 right-0 w-[36rem]'>
+        <div className='absolute inset-y-0 right-0 w-[30rem]'>
           <h2>Hello! Welcome to the website.</h2>
           <p>This email system is a way for astronomy lovers or people who just like 
             seeing space photos to get a snapshot of NASA's 
-            Astronomy Photos of the Day.</p>
+            Astronomy Photos of the Day. <br></br><br></br>Every Monday at 8:00 AM check your inbox for an email with the past week's APoD pictures.  </p>
           <br></br>
           <p className='font-bold'><u>Join the Email List:</u></p>
           <form onSubmit={handleSubmit}>

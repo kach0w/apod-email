@@ -67,31 +67,31 @@ export default async function handler(req, res) {
         <br>
         <img width="300" height="300" src=${urls[0]}>
         <br>
-        <p style="color: #222">${dates[0]} - <b>${titles[0]}</b></p>
+        <p style="color: #222">${dates[0]} - <b>"${titles[0]}"</b></p>
         <br><br>
         <img width="300" height="300" src=${urls[1]}>
         <br>
-        <p style="color: #222">${dates[1]} - <b>${titles[1]}</b></p>
+        <p style="color: #222">${dates[1]} - <b>"${titles[1]}"</b></p>
         <br><br>
         <img width="300" height="300" src=${urls[2]}>
         <br>
-        <p style="color: #222">${dates[2]} - <b>${titles[2]}</b></p>
+        <p style="color: #222">${dates[2]} - <b>"${titles[2]}"</b></p>
         <br><br>
         <img width="300" height="300" src=${urls[3]}>
         <br>
-        <p style="color: #222">${dates[3]} - <b>${titles[3]}</b></p>
+        <p style="color: #222">${dates[3]} - <b>"${titles[3]}"</b></p>
         <br><br>
         <img width="300" height="300" src=${urls[4]}>
         <br>
-        <p style="color: #222"${dates[4]} - <b>${titles[4]}</b>}</p>
+        <p style="color: #222"${dates[4]} - <b>"${titles[4]}"</b></p>
         <br><br>
         <img width="300" height="300" src=${urls[5]}>
         <br>
-        <p style="color: #222">${dates[5]} - <b>${titles[5]}</b>}</p>
+        <p style="color: #222">${dates[5]} - <b>"${titles[5]}"</b>}</p>
         <br><br>
         <img width="300" height="300" src=${urls[6]}>
         <br>
-        <p style="color: #222">${dates[6]} - <b>${titles[6]}</b></p>
+        <p style="color: #222">${dates[6]} - <b>"${titles[6]}"</b></p>
         <br><br>
         <h3 style="color: #222">See you next week,</h3>
         <h3 style="color: #222">Karthik</h3>
