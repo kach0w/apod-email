@@ -92,14 +92,14 @@ export default function Home() {
   return (
     <div className="w-[100vw] h-[100vh] bg-[#c2eaba] text-[#222] text-center p-5">
       <Head>
-        <title>APoD Email</title>
+        <title>Star Gazer</title>
         <meta name="description" content="An email list for those interested in NASA's Astronomy Pictures of the Day"></meta>
         <link rel="icon" href="/favicon.png" sizes="any" />      
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz@8..60&display=swap" rel="stylesheet" />
       </Head>        
-      <h2>Astronomy Picture of the Day - Email List</h2>
+      <h2>Star Gazer</h2>
       <div className='relative w-[65rem] h-[43rem] mx-auto mt-[5rem]'>
         <div id="apoc-pic" className='absolute inset-y-0 left-0 w-[35rem]'>
           <div>
