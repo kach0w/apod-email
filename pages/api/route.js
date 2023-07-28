@@ -1,9 +1,14 @@
 const nodemailer = require('nodemailer')
 export default async function handler(req, res) {
     let d = new Date();
-    let month = d.getMonth() + 1;
+    let month = d.getMonth();
     let day = d.getDate();
     let year = d.getFullYear();
+    if(month === 12){
+        month = 1;
+    } else {
+        month += 1;
+    }
     if(day <= 7){
         if(month <= 1){
             month = 12
@@ -18,9 +23,26 @@ export default async function handler(req, res) {
     }
 
     let today = new Date();
-    let m = today.getMonth() + 1
-    let da = today.getDate() - 1;
+    let m = today.getMonth()
+    if(m === 12){
+        m = 1;
+    } else {
+        m += 1;
+    }
+    let da = today.getDate();
     let y = today.getFullYear();
+    if(da <= 1){
+        if(month <= 1){
+            month = 12
+            year -= 1
+            day -= 1
+        } else {
+            month -= 1;
+            day -= 1
+        }
+    } else {
+        day -= 1;
+    }
 
     const apikey = process.env.NEXT_PUBLIC_NASA_API_KEY
     const url = "https://api.nasa.gov/planetary/apod?start_date=" + year + "-" + month + "-" + day + "&end_date=" +  y + "-" + m + "-" + da + "&api_key=" + apikey ;
