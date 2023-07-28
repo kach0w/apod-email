@@ -55,16 +55,13 @@ export default function Home() {
 
   useEffect(() => {
     fetchImage();
-    // console.log(emailList)
     // 8 am mondays 0 8 * * 1
     setTimeout(sendEmails,50);
 
-    // const job = schedule.scheduleJob('0 8 * * 1', () => {
-    console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
-      // setEmails([]);
-
-    //   sendEmails();
-    // });
+    const job = schedule.scheduleJob('0 8 * * 1', () => {
+      console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
+      setTimeout(sendEmails,50);
+    });
     // console.log(emailList)
 
   }, []);
