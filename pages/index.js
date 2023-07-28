@@ -116,7 +116,7 @@ export default function Home() {
             <div className='w-[30rem] mt-2'>{date}</div>
           </div>
         </div>
-        <div className='absolute inset-y-0 right-0 w-[35rem]'>
+        <div className='absolute inset-y-0 right-0 w-[36rem]'>
           <h2>Hello! Welcome to the website.</h2>
           <p>This email system is a way for astronomy lovers or people who just like 
             seeing space photos to get a snapshot of NASA's 
