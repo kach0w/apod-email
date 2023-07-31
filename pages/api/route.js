@@ -1,5 +1,18 @@
 const nodemailer = require('nodemailer')
+import { db } from '../firebase';
+
 export default async function handler(req, res) {
+    // const [emails, setEmails] = useState([]);
+    const querySnapshot = await db.collection("apod").get();
+
+    const emails = querySnapshot.docs.map((doc) => {
+        return doc.data().emailInput;
+    });
+
+    // setEmails(emails);
+    console.log("emailData: " + emails)
+
+
     let d = new Date();
     let month = d.getMonth();
     let day = d.getDate();
@@ -99,7 +112,7 @@ export default async function handler(req, res) {
         <p style="color: #222"><a style="color: #3b82f6" href="https://github.com/kach0w">@kach0w</a> | <a style="color: #3b82f6" href="https://apod-email.vercel.app">Website</p>
     </div>
     `
-    const emails = req.body
+    // const emails = req.body
     const gmailPWD = process.env.NEXT_PUBLIC_GMAIL_PASSWORD
     // console.log(emails)
     const transporter = nodemailer.createTransport({
