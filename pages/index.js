@@ -8,6 +8,7 @@ import { db } from '../firebase';
 import Head from 'next/head'
 import schedule from 'node-schedule';
 import axios from 'axios' 
+import Router from 'next/router'
 
 export default function Home() {
     const [imageUrl, setImageUrl] = useState('');
