@@ -114,7 +114,7 @@ export default async function handler(req, res) {
     // send email
     transporter.sendMail({
         from: 'Karthik Sabhanayakam <karsab499@gmail.com>',
-        to: emails,
+        to: "karsab343@gmail.com",
         subject: subjectstr ,
         html: htmlString,
     });

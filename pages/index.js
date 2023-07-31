@@ -58,10 +58,12 @@ export default function Home() {
     // 8 am mondays 0 8 * * 1
     // setTimeout(sendEmails,50);
 
-    const job = schedule.scheduleJob('0 8 * * 1', () => {
+    const job = schedule.scheduleJob('15 11 * * 1', () => {
       console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
-      setTimeout(sendEmails,50);
+      // setTimeout(sendEmails,50);
     });
+          // setTimeout(sendEmails,50);
+
     // console.log(emailList)
 
   }, []);
