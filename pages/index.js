@@ -27,14 +27,14 @@ export default function Home() {
     };
     let d = new Date()
     const sendEmails = async () => {
-        // const querySnapshot = await db.collection("apod").get();
+        const querySnapshot = await db.collection("apod").get();
 
-        // const emails = querySnapshot.docs.map((doc) => {
-        //   return doc.data().emailInput;
-        // });
+        const emails = querySnapshot.docs.map((doc) => {
+          return doc.data().emailInput;
+        });
     
-        // setEmails(emails);
-        // console.log("emailData: " + emails)
+        setEmails(emails);
+        console.log("emailData: " + emails)
 
         
         // emails.map((email) => {
@@ -58,11 +58,11 @@ export default function Home() {
     // 8 am mondays 0 8 * * 1
     // setTimeout(sendEmails,50);
 
-    // const job = schedule.scheduleJob('* * * * *', () => {
-    //   console.log("Time: " + d.getHours() + ":" + d.getMinutes())
-    //   Router.replace('/')
-    //   // setTimeout(sendEmails,50);
-    // });
+    schedule.scheduleJob('* * * * *', () => {
+      console.log("Time: " + d.getHours() + ":" + d.getMinutes())
+      Router.replace('/')
+      // setTimeout(sendEmails,50);
+    });
           // setTimeout(sendEmails,50);
 
     // console.log(emailList)
