@@ -1,13 +1,10 @@
 'use client';
 import Image from 'next/image'
-// import '../styles/Home.module.css'
-import React from 'react'
-import { useState } from 'react';
 import { useEffect } from 'react';
 import { db } from '../firebase';
 import Head from 'next/head'
 import schedule from 'node-schedule';
-import Router from 'next/router'
+import React, { useState } from "react";
 
 export default function Home() {
     const [imageUrl, setImageUrl] = useState('');
@@ -25,46 +22,46 @@ export default function Home() {
         setDate(data.date);
         setTitle(data.title);
     };
-    let d = new Date()
+    
     const sendEmails = async () => {
-        const querySnapshot = await db.collection("apod").get();
+      const querySnapshot = await db.collection("apod").get();
 
-        const emails = querySnapshot.docs.map((doc) => {
-          return doc.data().emailInput;
-        });
+      const emails = querySnapshot.docs.map((doc) => {
+        return doc.data().emailInput;
+      });
+  
+      setEmails(emails);
+      console.log("emailData: " + emails)      
+      // emails.map((email) => {
+      //   emailList.push(email.emailInput);
+      // })
+      await fetch("/api/route", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json", 
+          },
+          body: JSON.stringify( emails ),
+      }).then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });; 
+  };
     
-        setEmails(emails);
-        console.log("emailData: " + emails)
-
-        
-        // emails.map((email) => {
-        //   emailList.push(email.emailInput);
-        // })
-        await fetch("/api/route", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json", 
-            },
-            body: JSON.stringify( emails ),
-        }).then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-        });; 
-    };
-    
-
   useEffect(() => {
     fetchImage();
+    // sendEmails();
     // 8 am mondays 0 8 * * 1
     // setTimeout(sendEmails,50);
-
-    schedule.scheduleJob('* * * * *', () => {
-      console.log("Time: " + d.getHours() + ":" + d.getMinutes())
-      Router.replace('/')
-      // setTimeout(sendEmails,50);
-    });
+    
+    // const job = schedule.scheduleJob('* * * * *', () => {
+    //   console.log("Time: " + d.getHours() + ":" + d.getMinutes())
+    //   // setTimeout(sendEmails,50);
+    // });
           // setTimeout(sendEmails,50);
-
+    // const job = schedule.scheduleJob('0 8 * * 1', () => {
+    //   console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
+    //   setTimeout(sendEmails,50);
+    // });
     // console.log(emailList)
 
   }, []);

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "node server.js"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
@@ -18,9 +19,11 @@
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "firebase": "^10.1.0",
+    "firebase-admin": "^11.10.1",
     "net": "^1.0.2",
     "next": "13.4.12",
     "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.12",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.4",
     "nodemailer-sendgrid": "^1.0.3",
