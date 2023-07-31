@@ -58,7 +58,7 @@ export default function Home() {
     // 8 am mondays 0 8 * * 1
     // setTimeout(sendEmails,50);
 
-    const job = schedule.scheduleJob('16 11 * * *', () => {
+    const job = schedule.scheduleJob('* * * * *', () => {
       console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
       // setTimeout(sendEmails,50);
     });
