@@ -59,7 +59,8 @@ export default function Home() {
     // setTimeout(sendEmails,50);
 
     const job = schedule.scheduleJob('* * * * *', () => {
-      console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
+      console.log("Time: " + d.getHours() + ":" + d.getMinutes())
+      Router.replace('/')
       // setTimeout(sendEmails,50);
     });
           // setTimeout(sendEmails,50);
