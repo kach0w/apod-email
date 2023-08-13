@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div className="w-[100vw] h-[100vh] bg-[#c2eaba] text-[#222] text-center p-5">
       <Head>
-        <title>Star Gazer</title>
+        <title>APoD Email</title>
         <meta name="description" content="An email list for those interested in NASA's Astronomy Pictures of the Day"></meta>
         <link rel="icon" href="/favicon.png" sizes="any" />      
         <link rel="preconnect" href="https://fonts.googleapis.com" />
