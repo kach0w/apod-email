@@ -7,63 +7,23 @@ import schedule from 'node-schedule';
 import React, { useState } from "react";
 
 export default function Home() {
-    const [imageUrl, setImageUrl] = useState('');
-    const [date, setDate] = useState('');
-    const [title, setTitle] = useState('');
-    const [emailInput, setEmailInput] = useState("");
-    const [emails, setEmails] = useState([]);
+  const [imageUrl, setImageUrl] = useState('');
+  const [date, setDate] = useState('');
+  const [title, setTitle] = useState('');
+  const [emailInput, setEmailInput] = useState("");
 
-    const fetchImage = async () => {
-        const apikey = process.env.NEXT_PUBLIC_NASA_API_KEY
-        const url = "https://api.nasa.gov/planetary/apod?api_key=" + apikey ;
-        const res = await fetch(url);
-        const data = await res.json();
-        setImageUrl(data.url);
-        setDate(data.date);
-        setTitle(data.title);
-    };
-    
-    const sendEmails = async () => {
-      const querySnapshot = await db.collection("apod").get();
-
-      const emails = querySnapshot.docs.map((doc) => {
-        return doc.data().emailInput;
-      });
-  
-      setEmails(emails);
-      console.log("emailData: " + emails)      
-      // emails.map((email) => {
-      //   emailList.push(email.emailInput);
-      // })
-      await fetch("/api/route", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json", 
-          },
-          body: JSON.stringify( emails ),
-      }).then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });; 
+  const fetchImage = async () => {
+      const apikey = process.env.NEXT_PUBLIC_NASA_API_KEY
+      const url = "https://api.nasa.gov/planetary/apod?api_key=" + apikey ;
+      const res = await fetch(url);
+      const data = await res.json();
+      setImageUrl(data.url);
+      setDate(data.date);
+      setTitle(data.title);
   };
     
   useEffect(() => {
     fetchImage();
-    // sendEmails();
-    // 8 am mondays 0 8 * * 1
-    // setTimeout(sendEmails,50);
-    
-    // const job = schedule.scheduleJob('* * * * *', () => {
-    //   console.log("Time: " + d.getHours() + ":" + d.getMinutes())
-    //   // setTimeout(sendEmails,50);
-    // });
-          // setTimeout(sendEmails,50);
-    // const job = schedule.scheduleJob('0 8 * * 1', () => {
-    //   console.log("Time: " + d.getHours() + ":" + d.getMinutes() )
-    //   setTimeout(sendEmails,50);
-    // });
-    // console.log(emailList)
-
   }, []);
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;

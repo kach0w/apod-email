@@ -1,10 +1,9 @@
-const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
-const schedule = require('node-schedule');
 const fetch = require("node-fetch");
-require('dotenv').config()
+import firebaseAdmin from '../../firebaseadmin';
 
 async function sendWeeklyEmail(emailData) {
+    console.log("emailData: " + emailData)
     try {
         let d = new Date();
         let month = d.getMonth();
@@ -106,7 +105,7 @@ async function sendWeeklyEmail(emailData) {
             <p style="color: #222"><a style="color: #3b82f6" href="https://github.com/kach0w">@kach0w</a> | <a style="color: #3b82f6" href="https://apod-email.vercel.app">Website</p>
         </div>
         `
-        // const emails = req.body
+        // const emailList = fetchEmailsFromFirebase(); 
         const gmailPWD = "rxcpxwbitetqvjfi"
         // console.log(emails)
         const transporter = nodemailer.createTransport({
@@ -117,48 +116,27 @@ async function sendWeeklyEmail(emailData) {
                 pass: gmailPWD,
             }
         });
-        let subjectstr = `${m}/${da} Astronomy Picture of the Day Mailing List`
-        // send email
+        let subjectstr = `${m}/${da} Star Gazer Mailing List`
         transporter.sendMail({
             from: 'Karthik Sabhanayakam <karsab499@gmail.com>',
-            to: "karsab343@gmail.com",
+            to: emailData,
             subject: subjectstr ,
             html: htmlString,
         });
-      console.log('Weekly email sent');
+    //   console.log('Weekly email sent');
     } catch (error) {
       console.error('Error sending weekly email:', error);
     }
 }
-async function fetchEmailsFromFirebase() {
-    try {
-        const snapshot = await admin.firestore().collection('apod').get();
-        const emails = [];
-        snapshot.forEach((doc) => {
-        emails.push(doc.data());
-        });
-        return emails;
-    } catch (error) {
-        console.error('Error fetching emails:', error);
-        return [];
-    }
-}
 
 export default async function handler(req, res) {
-    const serviceAccount = require('./cred.json');
-        admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+    const db = firebaseAdmin.firestore();
+    const snapshot = await db.collection('apod').get();
+    const emails = [];
+    snapshot.forEach((doc) => {
+      emails.push(doc.data().emailInput);
     });
-
-    // const sendWeeklyEmailsJob = schedule.scheduleJob('* * * * *', async () => {
-    const emails = await fetchEmailsFromFirebase();
-    // emails.forEach(async (email) => {
-    //   await sendWeeklyEmail(email);
-    // });
+    
     sendWeeklyEmail(emails);
-    console.log(emails)
-    // });
-
-
     res.status(200).end('Hello Cron!');
 }
