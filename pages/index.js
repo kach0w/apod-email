@@ -59,7 +59,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz@8..60&display=swap" rel="stylesheet" />
       </Head>        
-      <h2>Star Gazer</h2>
+      <h2>APoD Email</h2>
       <div className='relative w-[65rem] h-[43rem] mx-auto mt-[5rem]'>
         <div id="apoc-pic" className='absolute inset-y-0 left-0 w-[35rem]'>
           <div>
